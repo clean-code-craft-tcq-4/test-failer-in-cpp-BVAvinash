@@ -1,18 +1,18 @@
 #include <iostream>
 #include <assert.h>
 
-int GetPairNumber(int majorColor, int minorColor) {
-    return (majorColor * 5 + minorColor + 1);
+int GetPairNumber(int majorColorIndex, int minorColorIndex) {
+    return (majorColorIndex * 5 + minorColorIndex + 1);
 }
 
-const char* getMajorColor(int majorColor, int minorColor, const char* majorColor[]) {       
-    int pairNumber = getPairNumber(majorColor, minorColor);
+const char* GetMajorColor(int majorColorIndex, int minorColorIndex, const char* majorColor[]) {       
+    int pairNumber = GetPairNumber(majorColorIndex, minorColorIndex);
     int majorColorFromPairNumber = (pairNumber - 1) / 5;
 		
     return majorColor[majorColorFromPairNumber];
 }	
-const char* getMinorColor(int majorColor, int minorColor, const char* minorColor[]) {
-    int pairNumber = getPairNumber(majorColor, minorColor);
+const char* GetMinorColor(int majorColorIndex, int minorColorIndex, const char* minorColor[]) {
+    int pairNumber = GetPairNumber(majorColorIndex, minorColorIndex);
     int minorColorFromPairNumber = pairNumber % 5;
 		
     return minorColor[minorColorFromPairNumber];
@@ -27,8 +27,8 @@ int printColorMap() {
             std::cout << i * 5 + j << " | " << majorColor[i] << " | " << minorColor[i] << "\n";
             
             assert(GetPairNumber(i, j) == (i*5+j)+1);
-            assert(getMajorColor(i, j, majorColor) == majorColor[i]);
-            assert(getMinorColor(i, j, minorColor) == minorColor[i]);
+            assert(GetMajorColor(i, j, majorColor) == majorColor[i]);
+            assert(GetMinorColor(i, j, minorColor) == minorColor[j]);
         }
     }
     return i * j;
