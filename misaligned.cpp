@@ -1,6 +1,9 @@
 #include <iostream>
 #include <assert.h>
 
+const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
+const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
+
 int GetPairNumber(int majorColorIndex, int minorColorIndex) {
     return (majorColorIndex * 5 + minorColorIndex + 1);
 }
@@ -18,17 +21,25 @@ const char* GetMinorColor(int majorColorIndex, int minorColorIndex, const char* 
     return minorColor[minorColorFromPairNumber];
 }
 
+bool TestPairAligment(int majorNum, int minorNum, const char* majorColorVal, const char* minorColorVal)
+{
+    if (GetMajorColor(majorNum, minorNum, majorColor) == majorColorVal && GetMinorColor(majorNum, minorNum, minorColor) == minorColorVal) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 int printColorMap() {
-    const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
-    const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
             std::cout << i * 5 + j << " | " << majorColor[i] << " | " << minorColor[i] << "\n";
             
-            assert(GetPairNumber(i, j) == (i*5+j)+1);
-            assert(GetMajorColor(i, j, majorColor) == majorColor[i]);
-            assert(GetMinorColor(i, j, minorColor) == minorColor[j]);
+            if (!(TestPairAligment(i, j, majorColor[i], minorColor[j]))) {
+                break;
+            }
         }
     }
     return i * j;
